@@ -1,0 +1,91 @@
+/* 浅色模式（默认） */
+:root {
+  /* ========== 全局语义变量 ========== */
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --text-bold-color: #000000;
+  --border-color: #eaeaea;
+  --hover-brightness: 0.98;
+  --menu-hover-bg: rgba(0, 0, 0, 0.08);
+  --preset-btn-color: #8AAADC;
+  --title-grad-from: #1e293b;
+  --title-grad-to: #3b82f6;
+
+  --code-inline-bg: #ebeef2;
+  --code-inline-color: rgba(0, 0, 0, 0.85);
+  --code-block-bg: #f7f8fa;
+  --code-block-color: #2c3e50;
+  --quote-bg: #f7f8fa;
+  --quote-color: #6b7785;
+
+  --table-header-bg: #f7f8fa;
+  --table-hover-bg: #fafbfc;
+  --table-border-color: #d0d0d0; 
+
+  /* ========== 菜单 ========== */
+  // 折叠面板 整体边框颜色
+  --collapse-border-color: #e5e7eb;
+  // 折叠面板 标题下边线颜色
+  --collapse-title-border-color: #f0f1f3;
+
+// 颜色沿用你现有的变量
+// $border-color: #xxx;
+
+  /* ========== 输入框 ========== */
+  --input-bg: #f8f8f8;
+  --input-text: #333333;
+  --input-placeholder: #999999;
+
+  /* ========== 卡片/Cell 专属 ========== */
+  --card-bg: #ffffff;
+
+  /* ========== 组件专用变量 ========== */
+  // chat
+  --menu-selected-text-color: #000000;
+  --menu-selected-font-weight: 700;
+  --van-field-input-text-color: var(--text-color);
+  --van-field-placeholder-color: var(--input-placeholder);
+  --van-cell-bg-color: var(--input-bg);
+}
+
+/* 深色模式 */
+:root.dark {
+  /* ========== 全局语义变量 ========== */
+  --bg-color: #1e1e1e;
+  --text-color: #f9fafb;
+  --text-bold-color: #ffffff;
+  --border-color: #2c2c2c;
+  --chat-table-border: #555555;
+  --card-bg: #2d2d2d;
+  --hover-brightness: 1.05;
+  --menu-hover-bg: rgba(255, 255, 255, 0.12);
+  --preset-btn-color: #8AAADC;
+  --title-grad-from: #e0e7ff;
+  --title-grad-to: #60a5fa;
+
+  --code-inline-bg: #2c2c2c;
+  --code-inline-color: #f9fafb;
+  --code-block-bg: #1a1a1a;
+  --code-block-color: #f9fafb;
+  --quote-bg: #242424;
+  --quote-color: #d1d5db;
+
+  --table-header-bg: #363636;
+  --table-hover-bg: #424242;
+  --table-border-color: #4a4a4a;
+
+  --input-bg: #1f1f1f;
+  --input-text: #f9fafb;
+  --input-placeholder: #999999;
+
+  /* ========== 菜单 ========== */
+  --collapse-border-color: #374151;
+  --collapse-title-border-color: #6a6d70;
+  
+  /* ========== 组件专用变量 ========== */
+  // chat
+  --menu-selected-text-color: #ffffff;
+  --van-field-input-text-color: var(--text-color);
+  --van-field-placeholder-color: var(--input-placeholder);
+  --van-cell-bg-color: var(--input-bg);
+}
