@@ -52,32 +52,11 @@ export const constantRoute = [
         component: () => import('@/view/interview/index.vue'), // 暂时用同一个组件，后面可以替换
         meta: { title: 'JavaScript', hidden: false },
       },
-    ],
-  },
-  {
-    path: '/interview2',
-    name: 'Interview2',
-    component: () => import('@/layout/index.vue'),
-    redirect: '/html',
-    meta: { title: '面试题', hidden: false },
-    children: [
       {
-        path: '/html',
-        name: 'HTML',
-        component: () => import('@/view/interview/index.vue'),
-        meta: { title: 'HTML', hidden: false },
-      },
-      {
-        path: '/css',
-        name: 'CSS',
+        path: '/vue',
+        name: 'VUE',
         component: () => import('@/view/interview/index.vue'), // 暂时用同一个组件，后面可以替换
-        meta: { title: 'CSS', hidden: false },
-      },
-      {
-        path: '/javascript',
-        name: 'JS',
-        component: () => import('@/view/interview/index.vue'), // 暂时用同一个组件，后面可以替换
-        meta: { title: 'JavaScript', hidden: false },
+        meta: { title: 'Vue', hidden: false },
       },
     ],
   },

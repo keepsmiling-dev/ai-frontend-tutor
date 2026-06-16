@@ -93,16 +93,23 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 8px 16px;
-      background: rgba(#000, 0.08);
+      padding: 0px 16px;
+      background: var(--code-header-color);
+      height: 44px;
+
+      :-deep(.code-header .copy-code-btn) {
+        height: 32px !important;
+        padding: 0 12px !important;
+        margin: 0 !important;
+        font-size: 12px;
+        line-height: 32px;
+        box-shadow: none !important;
+      }
 
       .code-lang {
         font-size: 13px;
         color: #aaa;
-      }
-      .copy-code-btn {
-        padding: 2px 8px;
-        font-size:12px;
+        line-height: 32px; /* 和按钮等高，文字中线对齐 */
       }
     }
 

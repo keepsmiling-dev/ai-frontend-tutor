@@ -1,5 +1,5 @@
 <template>
-  <template v-for="(item, index) in menuList" :key="item.path">
+  <template v-for="(item, _index) in menuList" :key="item.path">
     <!-- 1.没有子路由 -->
     <van-sidebar-item
       v-if="!item.children && !item.meta.hidden"

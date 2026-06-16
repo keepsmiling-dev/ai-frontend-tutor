@@ -46,6 +46,12 @@
   --van-field-input-text-color: var(--text-color);
   --van-field-placeholder-color: var(--input-placeholder);
   --van-cell-bg-color: var(--input-bg);
+  --tooltip-bg: rgba(0, 0, 0, 0.75);      
+  --tooltip-text: #ffffff;      
+  --code-header-color: rgba(0, 0, 0, 0.08);           
+
+  /* ========== vant组件库变量 ========== */
+  
 }
 
 /* 深色模式 */
@@ -88,4 +94,7 @@
   --van-field-input-text-color: var(--text-color);
   --van-field-placeholder-color: var(--input-placeholder);
   --van-cell-bg-color: var(--input-bg);
+  --tooltip-bg: rgba(255, 255, 255, 0.85); 
+  --tooltip-text: #1e1e1e;         
+  --code-header-color: rgba(255, 255, 255, 0.2);
 }

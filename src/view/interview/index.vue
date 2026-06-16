@@ -91,7 +91,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, Transition } from 'vue';
 import { useRoute } from 'vue-router';
-import { htmlQuestions, cssQuestions, javascriptQuestions } from '@/data';
+import { htmlQuestions, cssQuestions, javascriptQuestions,vueQuestions } from '@/data/interview'
 import type { InterviewQuestion } from '@/store/modules/type';
 import { fetchAIResponse, type ChatMessage } from '@/api/ai.ts';
 
@@ -124,6 +124,8 @@ const setQuestionList = () => {
     questionList.value = cssQuestions;
   } else if (route.path.includes('javascript')) {
     questionList.value = javascriptQuestions;
+  } else if (route.path.includes('vue')){
+    questionList.value = vueQuestions;
   } else {
     questionList.value = htmlQuestions;
   }

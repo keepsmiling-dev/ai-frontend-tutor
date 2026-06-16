@@ -4,7 +4,7 @@ import { showToast } from "vant";
 // 创建 axios 实例
 let request = axios.create({
   baseURL: "/api", //基础路径,开发时代理到 DeepSeek
-  timeout: 15000,
+  timeout: 30000,
 });
 
 // 响应拦截器

@@ -41,6 +41,10 @@
           {{ q }}
         </van-button>
       </div>
+      <div class="clear-icon-wrapper" @click="clearChat">
+        <van-icon name="delete-o" class="clear-icon" />
+        <span class="tooltip-text">删除全部对话</span>
+      </div>
     </div>
 
     <!-- 输入区域 -->
@@ -71,20 +75,20 @@ import { ref, nextTick, onMounted, onUnmounted } from 'vue';
 import { showToast } from 'vant';
 import { fetchAIResponse } from '@/api/ai';
 import useChatStore from '@/store/modules/chat';
-import type { Message } from '@/store/modules/type';
 import { renderMarkdown } from '@/utils/markdowm';
 import { useRoute, useRouter } from 'vue-router';
+import { storeToRefs } from 'pinia'
+
 
 const route = useRoute();
 const router = useRouter();
 // 聊天存储数据
 const chatStore = useChatStore();
-const messages = chatStore.messages;
+const { messages } = storeToRefs(chatStore)   
 
 const inputText = ref('');
 const loading = ref(false);
 // 存储用户消息DOM
-const userMsgRefs = ref<HTMLElement[]>([]);
 const messageListRef = ref<HTMLElement | null>(null);
 
 // 将最新提问滚动到可视区顶部
@@ -102,7 +106,7 @@ const scrollUserMsgToTop = async () => {
 
   // 置顶！
   lastOne.scrollIntoView({
-    behavior: 'instant', 
+    behavior: 'instant',
     block: 'start',
   });
 };
@@ -123,6 +127,11 @@ const quickSend = (question: string) => {
   sendMessage();
 };
 
+// 清除对话记录
+const clearChat = async () => {
+  chatStore.resetMessages();
+};
+
 // 发送消息
 const sendMessage = async () => {
   const text = inputText.value.trim();
@@ -135,7 +144,7 @@ const sendMessage = async () => {
   loading.value = true;
 
   try {
-    const reply = await fetchAIResponse(messages);
+    const reply = await fetchAIResponse(messages.value);
     chatStore.addMessage({ role: 'assistant', content: reply });
   } catch (error) {
     chatStore.addMessage({
@@ -181,7 +190,7 @@ const handleCopy = async (event: MouseEvent) => {
 };
 
 onMounted(() => {
-  if (messages.length === 0) {
+  if (messages.value.length === 0) {
     chatStore.addMessage({
       role: 'assistant',
       content: '你好！我是前端学习助手。请问有什么前端问题？',
@@ -207,7 +216,7 @@ onUnmounted(() => {
 </script>
 
 <style scoped lang="scss">
-@use '@/style/variable.scss' as *;
+@import '@/style/variable.scss';
 
 .chat-container {
   display: flex;
@@ -305,6 +314,9 @@ onUnmounted(() => {
   }
 
   .preset-area {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     background-color: var(--bg-color) !important;
     border-top: 1px solid var(--border-color) !important;
     padding: 8px 0;
@@ -331,6 +343,45 @@ onUnmounted(() => {
       .preset-btn:hover {
         color: $theme-hover-color;
         border-color: $theme-hover-color;
+      }
+    }
+
+    .clear-icon-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+      margin-right: 40px;
+
+      .clear-icon {
+        font-size: 26px; // 增大图标尺寸（原 van-icon 默认约 20px）
+      }
+
+      .tooltip-text {
+        visibility: hidden;
+        position: absolute;
+        bottom: 120%; // 悬浮在图标上方
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: var(--tooltip-bg);
+        color: var(--tooltip-text);
+        text-align: center;
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-size: 12px;
+        white-space: nowrap;
+        z-index: 1000;
+        opacity: 0;
+        transition:
+          opacity 0.2s ease,
+          visibility 0.2s;
+        pointer-events: none; // 让提示不干扰点击
+        backdrop-filter: blur(4px);
+      }
+
+      &:hover .tooltip-text {
+        visibility: visible;
+        opacity: 1;
       }
     }
   }
