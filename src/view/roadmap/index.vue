@@ -164,7 +164,7 @@
           <van-button
             class="mt-5"
             type="primary"
-            @click="startLearning(stage, stageList)"
+            @click="startLearning(currentStage, stageList)"
             block
             round
           >
@@ -202,17 +202,19 @@ const showDetail = (stage: any) => {
 const stage = defineProps({
   stage: Object, // 或者你是 ref/reactive 定义的当前阶段
 })
-const startLearning = (currentStage:any, _list:any) => {
-  // 安全判断 ✅ 解决报错
+
+const startLearning = (currentStage: any, _list: any) => {
   if (!currentStage) {
     alert('当前阶段不存在')
     return
   }
 
-  // 打开视频/文档
-  if (currentStage.videos?.length) {
+  const hasVideo = Array.isArray(currentStage.videos) && currentStage.videos.length > 0
+  const hasDoc = Array.isArray(currentStage.docs) && currentStage.docs.length > 0
+
+  if (hasVideo) {
     window.open(currentStage.videos[0].url, '_blank')
-  } else if (currentStage.docs?.length) {
+  } else if (hasDoc) {
     window.open(currentStage.docs[0].url, '_blank')
   } else {
     alert('暂无学习资源')
