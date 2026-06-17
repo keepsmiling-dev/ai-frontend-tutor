@@ -19,5 +19,5 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "api/**/*"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "api/**/*", "src/api/chat.js"]
 }
