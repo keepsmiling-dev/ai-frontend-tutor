@@ -4,6 +4,8 @@ import vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
 import { VantResolver } from 'unplugin-vue-components/resolvers'
 
+import { cloudflare } from "@cloudflare/vite-plugin";
+
 // https://vite.dev/config/
 /* export default defineConfig(({ mode }) => { 
   const env = loadEnv(mode, process.cwd(), '')
@@ -45,12 +47,9 @@ export default defineConfig(({ mode }) => {
         '@': path.resolve(__dirname, 'src'),
       },
     },
-    plugins: [
-      vue(),
-      Components({
-        resolvers: [VantResolver()],
-      }),
-    ],
+    plugins: [vue(), Components({
+      resolvers: [VantResolver()],
+    }), cloudflare()],
     // 新增 scss 全局变量配置，解决 $base-menu-width 未定义报错
     css: {
       preprocessorOptions: {
@@ -72,6 +71,5 @@ export default defineConfig(({ mode }) => {
         },
       },
     },
-  }
+  };
 })
-
