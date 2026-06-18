@@ -162,3 +162,8 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
 >>>>>>> a85d23e240fa8fb31a968f8c94254999e504f7f1
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
