@@ -1,6 +1,9 @@
 // 项目提供scss全局变量
-//定义项目主题颜色
 
+// 布局断点：移动端 / PC 分界
+$layout-pc-breakpoint: 768px;
+
+//定义项目主题颜色
 $theme-color: #8AAADC;       // 主题文字色
 $theme-background-color:#EDF3FE ;
 $theme-hover-color: #5a73be; //  hover 加深色

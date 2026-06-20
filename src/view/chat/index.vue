@@ -77,14 +77,13 @@ import { fetchAIResponse } from '@/api/ai';
 import useChatStore from '@/store/modules/chat';
 import { renderMarkdown } from '@/utils/markdowm';
 import { useRoute, useRouter } from 'vue-router';
-import { storeToRefs } from 'pinia'
-
+import { storeToRefs } from 'pinia';
 
 const route = useRoute();
 const router = useRouter();
 // 聊天存储数据
 const chatStore = useChatStore();
-const { messages } = storeToRefs(chatStore)   
+const { messages } = storeToRefs(chatStore);
 
 const inputText = ref('');
 const loading = ref(false);
@@ -226,11 +225,11 @@ onUnmounted(() => {
   color: var(--text-color);
 
   .message-list {
+    display: flex;
     flex: 1;
+    flex-direction: column;
     overflow-y: auto;
     padding: 12px;
-    display: flex;
-    flex-direction: column;
     gap: 16px;
 
     .message {
@@ -243,9 +242,7 @@ onUnmounted(() => {
         flex-direction: row-reverse;
         align-self: flex-end;
         .bubble {
-          /* ========== 改动2：使用主题选中色 ========== */
           background-color: var(--border-color) !important;
-          /* ========== 改动3：文字使用主题色 ========== */
           color: var(--text-color) !important;
         }
       }
@@ -253,11 +250,8 @@ onUnmounted(() => {
       &.assistant {
         align-self: flex-start;
         .bubble {
-          /* ========== 改动4：气泡背景 ========== */
           background-color: var(--card-bg) !important;
-          /* ========== 改动5：边框 ========== */
           border: 1px solid var(--border-color) !important;
-          /* ========== 改动6：文字颜色 ========== */
           color: var(--text-color) !important;
         }
       }
@@ -266,7 +260,6 @@ onUnmounted(() => {
         flex-shrink: 0;
         width: 32px;
         height: 32px;
-        /* ========== 改动7：头像背景 ========== */
         background-color: var(--border-color) !important;
         border-radius: 50%;
         display: flex;
@@ -410,6 +403,69 @@ onUnmounted(() => {
 
     .van-button {
       flex-shrink: 0;
+    }
+  }
+}
+
+// 移动端适配 宽度 <768px
+@media screen and (max-width: ($layout-pc-breakpoint - 1px)) {
+  .chat-container {
+    overflow-x: hidden !important;
+    overscroll-behavior-x: none !important;
+    touch-action: pan-y !important;
+
+    .message-list {
+      padding: 8px;
+      gap: 12px;
+      // iOS顺滑滚动
+      -webkit-overflow-scrolling: touch;
+      overflow-x: hidden;
+      overscroll-behavior-x: none;
+      touch-action: pan-y;
+
+      .message {
+        max-width: 88%;
+
+        .avatar {
+          width: 28px;
+          height: 28px;
+          font-size: 16px;
+        }
+
+        .bubble {
+          padding: 8px 10px;
+          font-size: 14px;
+          line-height: 1.5;
+          max-width: calc(100% - 34px);
+        }
+      }
+    }
+
+    .preset-area {
+      padding: 6px 0;
+      .preset-scroll {
+        gap: 6px;
+        padding: 0 8px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .clear-icon-wrapper {
+        margin-right: 12px;
+        .clear-icon {
+          font-size: 22px;
+        }
+      }
+    }
+
+    .input-area {
+      padding: 8px 10px;
+      // 适配手机底部小黑条安全区
+      padding-bottom: calc(8px + env(safe-area-inset-bottom));
+      gap: 6px;
+
+      .van-field {
+        padding: 8px 12px;
+      }
     }
   }
 }

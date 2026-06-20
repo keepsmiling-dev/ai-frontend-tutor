@@ -1,7 +1,17 @@
 <template>
   <div class="layout_container">
+    <!-- 遮罩层：点击关闭侧边栏 -->
+    <div
+      class="sidebar-overlay"
+      v-if="isMobile && sidebarOpen"
+      @click="toggleSidebar"
+    ></div>
+    <!-- 移动端汉堡按钮 -->
+    <div class="menu-toggle" @click="toggleSidebar" v-if="isMobile">
+      <van-icon name="bars" />
+    </div>
     <!-- 左侧菜单 -->
-    <div class="layout_slider">
+    <div class="layout_slider" :class="{ 'sidebar-open': sidebarOpen }">
       <van-sidebar v-model="active">
         <!-- 根据路由动态生成菜单 -->
         <Menu :menuList="userStore.menuRoutes"></Menu>
@@ -22,13 +32,36 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted, onUnmounted, watch } from 'vue';
+import { useRoute } from 'vue-router';
 import Menu from './menu/index.vue';
 import Header from './header/header.vue';
 import useUserStore from '@/store/modules/user';
 
 const active = ref(0);
 const userStore = useUserStore();
+const isMobile = ref(window.innerWidth < 768);
+const sidebarOpen = ref(false);
+const route = useRoute();
+
+watch(
+  () => route.path,
+  (newPath, oldPath) => {
+    if (isMobile.value && sidebarOpen.value) {
+      sidebarOpen.value = false;
+    }
+  }
+);
+const toggleSidebar = () => {
+  sidebarOpen.value = !sidebarOpen.value;
+};
+
+const handleResize = () => {
+  isMobile.value = window.innerWidth < 768;
+  if (!isMobile.value) sidebarOpen.value = false; // PC 上自动关闭
+};
+onMounted(() => window.addEventListener('resize', handleResize));
+onUnmounted(() => window.removeEventListener('resize', handleResize));
 </script>
 <script lang="ts">
 export default {
@@ -40,10 +73,49 @@ export default {
 @import '@/style/variable.scss';
 
 .layout_container {
+  display: flex;
   width: 100%;
   height: 100vh;
-  display: flex;
-  overflow: hidden; /* 禁止整体滚动 */
+  overflow: hidden;
+  overflow-x: hidden !important;
+
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .menu-toggle {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 999;
+    display: none; // 默认隐藏
+    font-size: 24px;
+    padding: 8px;
+    background: var(--bg-color);
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+
+    @media (max-width: 767px) {
+      display: block;
+    }
+  }
 
   .layout_slider {
     width: $base-menu-width;
@@ -150,27 +222,69 @@ export default {
       font-weight: var(--menu-selected-font-weight) !important;
       border: none !important;
     }
+
+    // 原有样式
+    @media (max-width: 767px) {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+      width: $base-menu-width;
+      box-shadow: 2px 0 12px rgba(0, 0, 0, 0.1);
+      &.sidebar-open {
+        transform: translateX(0);
+      }
+    }
   }
 
-  /* 右侧整体 */
   .layout_content {
     flex: 1;
     display: flex;
     flex-direction: column;
-    height: 100%;
     min-width: 0; /* 允许变窄，不撑宽 */
     overflow: hidden;
+    overflow-x: hidden !important;
+    background-color: var(--bg-color);
 
     .layout_header {
       flex-shrink: 0; /* 头部固定高度，不压缩 */
+      padding: 0 16px;
+      background-color: var(--bg-color);
+
+      @media (max-width: 768px) {
+        padding-left: 50px !important; // 为汉堡图标留出空间
+        .title {
+          font-size: 16px !important; // 移动端标题适当缩小
+        }
+      }
     }
 
     .layout_main {
       flex: 1;
-      min-height: 0; /* 高度可以被压缩 */
-      min-width: 0; /* 宽度可以被压缩 */
+      width: 100%;
+      min-height: 0;
+      min-width: 0;
       background: var(--bg-color);
-      overflow: hidden;
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+
+      @media (max-width: ($layout-pc-breakpoint - 1px)) {
+        &::-webkit-scrollbar {
+          display: none !important;
+        }
+        -ms-overflow-style: none !important;
+        scrollbar-width: none !important;
+
+        overscroll-behavior-x: none;
+        touch-action: pan-y;
+      }
+    }
+
+    @media (max-width: ($layout-pc-breakpoint - 1px)) {
+      margin-left: 0 !important;
     }
   }
 }

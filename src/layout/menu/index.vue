@@ -4,7 +4,7 @@
     <van-sidebar-item
       v-if="!item.children && !item.meta.hidden"
       :title="item.meta.title"
-      @click="goRoute(item.path)"
+      :to="item.path"
     ></van-sidebar-item>
 
     <!-- 2.仅有一个子路由，直接显示子路由 -->
@@ -15,7 +15,7 @@
         !item.children[0].meta.hidden
       "
       :title="item.children[0].meta.title"
-      @click="goRoute(item.children[0].path)"
+      :to="item.children[0].path"
     ></van-sidebar-item>
 
     <!-- 3.有多个子路由，显示折叠菜单 -->
@@ -57,10 +57,7 @@ watch(
   { immediate: true }
 );
 
-// 点击菜单的回调
-const goRoute = (path: string) => {
-  router.push(path)
-};
+
 </script>
 <script lang="ts">
 export default {

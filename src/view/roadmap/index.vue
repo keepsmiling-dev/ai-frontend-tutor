@@ -19,7 +19,7 @@
           </div>
           <div class="card-content">
             <div class="stage-name">{{ stage.name }}</div>
-            <div class="stage-desc">{{ stage.desc}}</div>
+            <div class="stage-desc">{{ stage.desc }}</div>
             <div class="stage-tags">
               <van-tag
                 v-for="tag in stage.tags"
@@ -161,15 +161,15 @@
         </div>
 
         <!-- 底部按钮 -->
-          <van-button
-            class="mt-5"
-            type="primary"
-            @click="startLearning(currentStage, stageList)"
-            block
-            round
-          >
-            开始本阶段学习
-          </van-button>
+        <van-button
+          class="mt-5"
+          type="primary"
+          @click="startLearning(currentStage, stageList)"
+          block
+          round
+        >
+          开始本阶段学习
+        </van-button>
       </div>
     </van-popup>
   </div>
@@ -178,10 +178,9 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
-import {stageList} from '@/data/roadmap/roadmap'
+import { stageList } from '@/data/roadmap/roadmap';
 
 const router = useRouter();
-
 
 const goBack = () => router.back();
 
@@ -201,348 +200,473 @@ const showDetail = (stage: any) => {
 
 const stage = defineProps({
   stage: Object, // 或者你是 ref/reactive 定义的当前阶段
-})
+});
 
 const startLearning = (currentStage: any, _list: any) => {
   if (!currentStage) {
-    alert('当前阶段不存在')
-    return
+    alert('当前阶段不存在');
+    return;
   }
 
-  const hasVideo = Array.isArray(currentStage.videos) && currentStage.videos.length > 0
-  const hasDoc = Array.isArray(currentStage.docs) && currentStage.docs.length > 0
+  const hasVideo =
+    Array.isArray(currentStage.videos) && currentStage.videos.length > 0;
+  const hasDoc =
+    Array.isArray(currentStage.docs) && currentStage.docs.length > 0;
 
   if (hasVideo) {
-    window.open(currentStage.videos[0].url, '_blank')
+    window.open(currentStage.videos[0].url, '_blank');
   } else if (hasDoc) {
-    window.open(currentStage.docs[0].url, '_blank')
+    window.open(currentStage.docs[0].url, '_blank');
   } else {
-    alert('暂无学习资源')
+    alert('暂无学习资源');
   }
-}
+};
 </script>
 
 <style scoped lang="scss">
+@import '@/style/variable.scss';
+
 .roadmap-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
   background: var(--bg-color);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
 
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-  background: var(--card-bg);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--border-color);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-
-  .title {
-    font-size: 18px;
-    font-weight: 700;
-    background: linear-gradient(
-      135deg,
-      var(--title-grad-from),
-      var(--title-grad-to)
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .placeholder {
-    width: 24px;
-  }
-
-  .van-icon {
-    font-size: 24px;
-    color: #3b82f6;
-  }
-}
-
-.roadmap-list {
-  padding: 20px 40px 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  position: relative;
-}
-
-.stage-item {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-
-  &.left {
-    align-items: flex-start;
-
-    .stage-card {
-      margin-left: 8%;
-      border-radius: 24px 24px 24px 12px;
-      background: var(--card-bg);
-      box-shadow: 8px 12px 24px rgba(59, 130, 246, 0.12);
-    }
-  }
-
-  &.right {
-    align-items: flex-end;
-
-    .stage-card {
-      margin-right: 8%;
-      border-radius: 24px 24px 12px 24px;
-      background: var(--card-bg);
-      box-shadow: -8px 12px 24px rgba(59, 130, 246, 0.12);
-    }
-  }
-
-  &.first {
-    margin-top: 0;
-  }
-}
-
-.stage-card {
-  width: 60%;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  backdrop-filter: blur(4px);
-  border: 1px solid var(--border-color);
-
-  &:active {
-    transform: scale(0.98);
-  }
-
-  .card-icon {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, #eff6ff, #dbeafe);
-    border-radius: 20px;
+  .header {
     display: flex;
     align-items: center;
-    justify-content: center;
-    color: #3b82f6;
-  }
-
-  .card-content {
-    flex: 1;
-  }
-
-  .stage-name {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--text-color);
-    margin-bottom: 6px;
-  }
-
-  .stage-desc {
-    font-size: 14px;
-    color: var(--text-color);
-    opacity: 0.85;
-    line-height: 1.4;
-    margin-bottom: 8px;
-  }
-
-  .stage-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .ask-btn {
-    align-self: flex-start;
-    margin-top: 8px;
-    background: linear-gradient(95deg, #3b82f6, #2563eb);
-    border: none;
-    color: white;
-    font-weight: 500;
-  }
-}
-
-.connector {
-  position: relative;
-  width: 60px;
-  height: 40px;
-  margin: 0 auto;
-  background-repeat: no-repeat;
-  background-size: contain;
-
-  &::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100px;
-    pointer-events: none;
-    background-repeat: no-repeat;
-    background-size: contain;
-  }
-
-  &.connector-left::after {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 80'%3E%3Cpath fill='none' stroke='%233b82f6' stroke-width='2' stroke-dasharray='4 4' d='M10,0 C10,30 50,30 50,80' /%3E%3Ccircle cx='10' cy='0' r='4' fill='%233b82f6'/%3E%3C/svg%3E");
-  }
-
-  &.connector-right::after {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 80'%3E%3Cpath fill='none' stroke='%233b82f6' stroke-width='2' stroke-dasharray='4 4' d='M50,0 C50,30 10,30 10,80' /%3E%3Ccircle cx='50' cy='0' r='4' fill='%233b82f6'/%3E%3C/svg%3E");
-  }
-}
-
-@media (max-width: 500px) {
-  .stage-card {
-    width: 92%;
-  }
-
-  .connector {
-    transform: scale(0.8);
-  }
-}
-
-.detail-content {
-  padding: 24px 20px;
-
-  h3 {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: var(--text-color);
-  }
-
-  .detail-text {
-    font-size: 15px;
-    line-height: 1.5;
-    color: var(--text-color);
-    margin-bottom: 16px;
-  }
-
-  .detail-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 24px;
-  }
-}
-
-.stage-detail-box {
-  padding: 24px;
-  height: 100%;
-  overflow-y: auto;
-  box-sizing: border-box;
-  background-color: var(--bg-color);
-
-  .detail-head {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    .head-title {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--text-color);
-    }
-  }
-
-  .info-line {
-    display: flex;
-    gap: 20px;
-    font-size: 13px;
-    color: var(--text-color);
-    opacity: 0.7;
-    margin: 12px 0 20px;
-    padding-bottom: 12px;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: var(--card-bg);
+    backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    flex-shrink: 0;
+
+    .title {
+      font-size: 18px;
+      font-weight: 700;
+      background: linear-gradient(
+        135deg,
+        var(--title-grad-from),
+        var(--title-grad-to)
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .placeholder {
+      width: 24px;
+    }
+
+    .van-icon {
+      font-size: 24px;
+      color: #3b82f6;
+    }
   }
 
-  .content-block {
-    margin-bottom: 20px;
+  .roadmap-list {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 20px 40px 40px;
+    gap: 32px;
+    position: relative;
 
-    .block-title {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text-color);
-      margin-bottom: 8px;
-      text-align: left;
-    }
+    .stage-item {
+      position: relative;
+      display: flex;
+      flex-direction: column;
 
-    .block-text {
-      font-size: 14px;
-      line-height: 1.6;
-      color: var(--text-color);
-      white-space: pre-line;
-      text-align: left;
-    }
+      &.left {
+        align-items: flex-start;
 
-    // 缩进排版：文档资料 / 视频教程 整体后退
-    .resource-section {
-      margin-left: 16px;
-      margin-top: 8px;
-      text-align: left;
-
-      .resource-type {
-        font-size: 13px;
-        color: var(--text-color);
-        opacity: 0.7;
-        margin-bottom: 6px;
-        text-align: left;
+        .stage-card {
+          margin-left: 8%;
+          border-radius: 24px 24px 24px 12px;
+          background: var(--card-bg);
+          box-shadow: 8px 12px 24px rgba(59, 130, 246, 0.12);
+        }
       }
 
-      .resource-list {
-        margin-left: 16px;
+      &.right {
+        align-items: flex-end;
+
+        .stage-card {
+          margin-right: 8%;
+          border-radius: 24px 24px 12px 24px;
+          background: var(--card-bg);
+          box-shadow: -8px 12px 24px rgba(59, 130, 246, 0.12);
+        }
+      }
+
+      &.first {
+        margin-top: 0;
+      }
+
+      .stage-card {
+        width: 60%;
+        padding: 16px;
         display: flex;
         flex-direction: column;
         gap: 10px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        backdrop-filter: blur(4px);
+        border: 1px solid var(--border-color);
 
-        .resource-link {
-          font-size: 14px;
+        &:active {
+          transform: scale(0.98);
+        }
+
+        .card-icon {
+          width: 40px;
+          height: 40px;
+          background: linear-gradient(135deg, #eff6ff, #dbeafe);
+          border-radius: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           color: #3b82f6;
-          text-decoration: underline;
-          text-align: left;
+        }
 
-          &:hover {
-            color: #2563eb;
-          }
+        .card-content {
+          flex: 1;
+        }
+
+        .stage-name {
+          font-size: 18px;
+          font-weight: 700;
+          color: var(--text-color);
+          margin-bottom: 6px;
+        }
+
+        .stage-desc {
+          font-size: 14px;
+          color: var(--text-color);
+          opacity: 0.85;
+          line-height: 1.4;
+          margin-bottom: 8px;
+        }
+
+        .stage-tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+
+        .ask-btn {
+          align-self: flex-start;
+          margin-top: 8px;
+          background: linear-gradient(95deg, #3b82f6, #2563eb);
+          border: none;
+          color: white;
+          font-weight: 500;
+        }
+      }
+
+      .connector {
+        position: relative;
+        width: 60px;
+        height: 40px;
+        margin: 0 auto;
+        background-repeat: no-repeat;
+        background-size: contain;
+
+        &::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100px;
+          pointer-events: none;
+          background-repeat: no-repeat;
+          background-size: contain;
+        }
+
+        &.connector-left::after {
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 80'%3E%3Cpath fill='none' stroke='%233b82f6' stroke-width='2' stroke-dasharray='4 4' d='M10,0 C10,30 50,30 50,80' /%3E%3Ccircle cx='10' cy='0' r='4' fill='%233b82f6'/%3E%3C/svg%3E");
+        }
+
+        &.connector-right::after {
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 80'%3E%3Cpath fill='none' stroke='%233b82f6' stroke-width='2' stroke-dasharray='4 4' d='M50,0 C50,30 10,30 10,80' /%3E%3Ccircle cx='50' cy='0' r='4' fill='%233b82f6'/%3E%3C/svg%3E");
         }
       }
     }
   }
 
-  .skill-item {
-    margin-bottom: 12px;
+  /*   .detail-content {
+    padding: 24px 20px;
 
-    .skill-name {
-      font-size: 14px;
-      font-weight: 500;
-      color: #3b82f6;
-      margin: 0 0 4px 0;
-      text-align: left;
-    }
-
-    .skill-desc {
-      font-size: 13.5px;
+    h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
       color: var(--text-color);
+    }
+
+    .detail-text {
+      font-size: 15px;
       line-height: 1.5;
-      margin: 0;
-      text-align: left;
+      color: var(--text-color);
+      margin-bottom: 16px;
+    }
+
+    .detail-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+  } */
+
+  .stage-detail-box {
+    padding: 24px;
+    height: 100%;
+    overflow-y: auto;
+    box-sizing: border-box;
+    background-color: var(--bg-color);
+
+    .detail-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .head-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text-color);
+      }
+    }
+
+    .info-line {
+      display: flex;
+      gap: 20px;
+      font-size: 13px;
+      color: var(--text-color);
+      opacity: 0.7;
+      margin: 12px 0 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .content-block {
+      margin-bottom: 20px;
+
+      .block-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text-color);
+        margin-bottom: 8px;
+        text-align: left;
+      }
+
+      .block-text {
+        font-size: 14px;
+        line-height: 1.6;
+        color: var(--text-color);
+        white-space: pre-line;
+        text-align: left;
+      }
+
+      // 缩进排版：文档资料 / 视频教程 整体后退
+      .resource-section {
+        margin-left: 16px;
+        margin-top: 8px;
+        text-align: left;
+
+        .resource-type {
+          font-size: 13px;
+          color: var(--text-color);
+          opacity: 0.7;
+          margin-bottom: 6px;
+          text-align: left;
+        }
+
+        .resource-list {
+          margin-left: 16px;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+
+          .resource-link {
+            font-size: 14px;
+            color: #3b82f6;
+            text-decoration: underline;
+            text-align: left;
+
+            &:hover {
+              color: #2563eb;
+            }
+          }
+        }
+      }
+    }
+
+    .skill-item {
+      margin-bottom: 12px;
+
+      .skill-name {
+        font-size: 14px;
+        font-weight: 500;
+        color: #3b82f6;
+        margin: 0 0 4px 0;
+        text-align: left;
+      }
+
+      .skill-desc {
+        font-size: 13.5px;
+        color: var(--text-color);
+        line-height: 1.5;
+        margin: 0;
+        text-align: left;
+      }
+    }
+
+    .tag-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tip-block {
+      background: var(--border-color);
+      padding: 12px;
+      border-radius: 8px;
     }
   }
 
-  .tag-wrap {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
+  /*   @media (max-width: ($layout-pc-breakpoint - 1px)) {
+    // 卡片宽度已改为 92%，保持
+    .stage-card {
+      width: 92%;
+      padding: 12px; // 缩小内边距
 
-  .tip-block {
-    background: var(--border-color);
-    padding: 12px;
-    border-radius: 8px;
+      .stage-name {
+        font-size: 16px; // 标题字号适当缩小
+      }
+
+      .stage-desc {
+        font-size: 13px; // 描述字号缩小
+      }
+
+      .stage-tags {
+        gap: 4px; // 标签间距缩小
+      }
+
+      .ask-btn {
+        font-size: 12px; // 按钮字号缩小
+        padding: 4px 12px;
+      }
+    }
+
+    // 卡片列表整体调整
+    .roadmap-list {
+      padding: 16px 16px 40px; // 左右内边距从 40px 改为 16px
+      gap: 20px; // 卡片间距缩小
+    }
+
+    // 连接线缩小
+    .connector {
+      transform: scale(0.6); // 从 0.8 缩小到 0.6
+      height: 30px; // 适当减小高度
+      width: 40px;
+    }
+  } */
+  @media (max-width: ($layout-pc-breakpoint - 1px)) {
+    // 头部调整
+    .header {
+      padding: 10px 12px;
+
+      .title {
+        font-size: 16px;
+      }
+
+      .van-icon {
+        font-size: 20px;
+      }
+
+      .placeholder {
+        width: 16px;
+      }
+    }
+
+    // 卡片列表
+    .roadmap-list {
+      padding: 12px 12px 30px; // 左右内边距减小
+      gap: 20px;
+    }
+
+    // 卡片整体
+    .stage-card {
+      width: 92%;
+      padding: 12px;
+      gap: 6px; // 内部间距缩小
+
+      .card-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 18px;
+        border-radius: 16px;
+      }
+
+      .stage-name {
+        font-size: 15px;
+      }
+
+      .stage-desc {
+        font-size: 13px;
+        line-height: 1.4;
+        margin-bottom: 4px;
+      }
+
+      .stage-tags {
+        gap: 4px;
+
+        .van-tag {
+          font-size: 11px;
+          padding: 2px 6px;
+        }
+      }
+
+      .ask-btn {
+        font-size: 12px;
+        padding: 4px 12px;
+        margin-top: 4px;
+      }
+    }
+
+    // 连接线
+    .connector {
+      width: 30px;
+      height: 24px;
+      transform: scale(0.6);
+      margin: 0 auto;
+
+      &::after {
+        height: 60px; // 减少高度
+      }
+    }
+
+    // 连接线的左右偏移（如果有必要可以调整）
+    &.connector-left::after,
+    &.connector-right::after {
+      // 可以适当调整 SVG 大小，但 scale 已经处理了
+    }
+
+    // 左/右偏移微调（可选）
+    .stage-item.left .stage-card {
+      margin-left: 4%;
+    }
+    .stage-item.right .stage-card {
+      margin-right: 4%;
+    }
   }
 }
 </style>

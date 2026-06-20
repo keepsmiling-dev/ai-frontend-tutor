@@ -39,10 +39,6 @@ export const fetchAIResponse = async (messages: ChatMessage[]): Promise<string> 
       messages: messages,
       stream: false,
     });
-    console.log("完整响应:", response);
-    console.log("choices数组：", response.choices);
-    console.log("第一条choice：", response.choices[0]);
-    console.log("message对象：", response.choices[0].message);
 
     // 逐层校验，防止任意一层不存在报错
     if (!response?.choices?.length) throw new Error("无返回结果");
@@ -50,8 +46,6 @@ export const fetchAIResponse = async (messages: ChatMessage[]): Promise<string> 
     if (!msgObj?.content) throw new Error("返回内容为空");
 
     const content = msgObj.content;
-    console.log("content 值：", content);
-    console.log("content 类型：", typeof content);
 
     // 检测限流/Token超限提示，提示清空对话
     if (content.includes("Token耗尽") || content.includes("AI服务暂时无法使用")) {
