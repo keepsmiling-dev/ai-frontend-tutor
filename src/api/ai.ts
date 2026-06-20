@@ -6,32 +6,6 @@ export interface ChatMessage {
     content : string 
 }
 
-
-/* export const fetchAIResponse = async (messages: ChatMessage[]): Promise<string> => {
-  // 直接使用 request 实例，baseURL 已经是 '/api'
-  const response = await request.post('/v1/chat/completions', {
-    model: 'deepseek-chat',
-    messages: messages,
-    stream: false,
-  })
-
-  console.log('完整响应:', response)
-  return (response as any).choices[0].message.content
-} */
-
-
-/* export const fetchAIResponse = async (messages: ChatMessage[]): Promise<string> => {
-  // 完整官方地址，不再用 /api 代理
-  const response = await request.post("https://api.deepseek.com/v1/chat/completions", {
-    model: "deepseek-chat",
-    messages: messages,
-    stream: false,
-  });
-
-  console.log("完整响应:", response);
-  return (response as any).choices[0].message.content;
-}; */
-
 export const fetchAIResponse = async (messages: ChatMessage[]): Promise<string> => {
   try {
     const response: any = await request.post("https://api.deepseek.com/v1/chat/completions", {

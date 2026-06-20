@@ -203,14 +203,12 @@ body,
   width: 100vw;
   overflow: hidden;
   overflow-x: hidden !important;
-  /* 只允许上下滑动，完全屏蔽左右触摸 */
   touch-action: pan-y;
   overscroll-behavior-x: none;
   overscroll-behavior-y: auto;
   margin: 0;
   padding: 0;
 }
-/* 所有盒子强制不超屏幕宽度 */
 *{
   box-sizing:border-box;
   max-width:100vw;

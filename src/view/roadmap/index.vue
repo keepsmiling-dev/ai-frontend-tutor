@@ -401,31 +401,6 @@ const startLearning = (currentStage: any, _list: any) => {
     }
   }
 
-  /*   .detail-content {
-    padding: 24px 20px;
-
-    h3 {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      color: var(--text-color);
-    }
-
-    .detail-text {
-      font-size: 15px;
-      line-height: 1.5;
-      color: var(--text-color);
-      margin-bottom: 16px;
-    }
-
-    .detail-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 24px;
-    }
-  } */
-
   .stage-detail-box {
     padding: 24px;
     height: 100%;
@@ -541,44 +516,7 @@ const startLearning = (currentStage: any, _list: any) => {
       border-radius: 8px;
     }
   }
-
-  /*   @media (max-width: ($layout-pc-breakpoint - 1px)) {
-    // 卡片宽度已改为 92%，保持
-    .stage-card {
-      width: 92%;
-      padding: 12px; // 缩小内边距
-
-      .stage-name {
-        font-size: 16px; // 标题字号适当缩小
-      }
-
-      .stage-desc {
-        font-size: 13px; // 描述字号缩小
-      }
-
-      .stage-tags {
-        gap: 4px; // 标签间距缩小
-      }
-
-      .ask-btn {
-        font-size: 12px; // 按钮字号缩小
-        padding: 4px 12px;
-      }
-    }
-
-    // 卡片列表整体调整
-    .roadmap-list {
-      padding: 16px 16px 40px; // 左右内边距从 40px 改为 16px
-      gap: 20px; // 卡片间距缩小
-    }
-
-    // 连接线缩小
-    .connector {
-      transform: scale(0.6); // 从 0.8 缩小到 0.6
-      height: 30px; // 适当减小高度
-      width: 40px;
-    }
-  } */
+  
   @media (max-width: ($layout-pc-breakpoint - 1px)) {
     // 头部调整
     .header {
