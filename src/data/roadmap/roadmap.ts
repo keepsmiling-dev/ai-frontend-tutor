@@ -42,7 +42,7 @@ export const stageList = ref<Stage[]>([
     target:
       '熟练使用开发工具提效，掌握代码版本管理，能独立托管项目。在学习期间每天在 GitHub 上提交代码，养成习惯。',
     content:
-      '- VSCode 常用插件及调试技巧\n- Git 常用命令：clone, add, commit, push, pull, branch\n- GitHub 远程仓库管理（创建仓库、提交代码、拉取更新）',
+      'VSCode 常用插件及调试技巧\nGit 常用命令：clone, add, commit, push, pull, branch\nGitHub 远程仓库管理（创建仓库、提交代码、拉取更新）',
     tags: ['Git', 'GitHub', 'VSCode'],
     docs: [
       { name: 'Git 官方文档', url: 'https://git-scm.com/doc' },
@@ -65,7 +65,7 @@ export const stageList = ref<Stage[]>([
     level: '进阶',
     target: '掌握组件化开发，能独立开发一个小型项目（如 Todo 或博客前台）',
     content:
-      '- Vue 3 基础语法（模板、响应式、计算属性、指令）\n- 组合式 API（ref, reactive, computed, watch）\n- 组件通信（props, emit, provide/inject）\n- 路由 Vue Router（配置路由、导航守卫）\n- 状态管理 Pinia（定义 store、使用 state 和 actions）',
+      'Vue 3 基础语法（模板、响应式、计算属性、指令）\n组合式 API（ref, reactive, computed, watch）\n组件通信（props, emit, provide/inject）\n路由 Vue Router（配置路由、导航守卫）\n状态管理 Pinia（定义 store、使用 state 和 actions）',
     tags: ['Vue3', 'Vite', 'Pinia', 'Router'],
     docs: [
       { name: 'Vue 官方文档', url: 'https://cn.vuejs.org/' },
@@ -88,7 +88,7 @@ export const stageList = ref<Stage[]>([
     level: '进阶',
     target: '具备基本的工程化认知，能按规范组织代码，并尝试做简单的性能优化。',
     content:
-      '- 代码规范：ESLint + Prettier 基本配置\n- Vite 构建配置（代理、路径别名、环境变量）\n- 性能优化入门：路由懒加载、图片压缩、了解 WebP 格式',
+      '代码规范：ESLint + Prettier 基本配置\nVite 构建配置（代理、路径别名、环境变量）\n性能优化入门：路由懒加载、图片压缩、了解 WebP 格式',
     tags: ['工程化', '性能优化', '规范'],
     docs: [
       { name: 'Vite 构建文档', url: 'https://cn.vitejs.dev/guide/build.html' },
@@ -114,7 +114,7 @@ export const stageList = ref<Stage[]>([
     level: '高阶',
     target: '熟练应对前端面试，能独立梳理项目、输出优质简历、拿到 offer',
     content:
-      '- 梳理项目亮点，用 STAR 法则描述项目\n- 准备常见面试题（JS 基础、Vue 原理、网络等）\n- 优化简历描述，模拟面试',
+      '梳理项目亮点，用 STAR 法则描述项目\n准备常见面试题（JS 基础、Vue 原理、网络等）\n优化简历描述，模拟面试',
     tags: ['面试', '简历', '求职'],
     docs: [
       {
