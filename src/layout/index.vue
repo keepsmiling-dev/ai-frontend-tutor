@@ -47,6 +47,13 @@ const route = useRoute();
 watch(
   () => route.path,
   (newPath, oldPath) => {
+    let startTime = 0
+    if (startTime === 0) {
+      startTime = Date.now();
+    } else {
+      console.log('路由切换耗时:', Date.now() - startTime, 'ms');
+      startTime = 0;
+    }
     if (isMobile.value && sidebarOpen.value) {
       sidebarOpen.value = false;
     }
@@ -195,7 +202,10 @@ export default {
       background: transparent !important;
     }
 
-    :deep(.van-collapse-item__content .van-sidebar-item:not(.van-sidebar-item--select):hover) {
+    :deep(
+      .van-collapse-item__content
+        .van-sidebar-item:not(.van-sidebar-item--select):hover
+    ) {
       background-color: var(--menu-hover-bg) !important;
       color: var(--text-color) !important;
       border-bottom: none !important;
