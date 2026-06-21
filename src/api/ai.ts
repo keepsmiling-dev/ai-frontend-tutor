@@ -8,13 +8,13 @@ export interface ChatMessage {
 
 export const fetchAIResponse = async (messages: ChatMessage[]): Promise<string> => {
   try {
-    const response: any = await request.post("https://api.deepseek.com/v1/chat/completions", {
+    const response: any = await request.post("/v1/chat/completions", {
       model: "deepseek-v4-flash",
       messages: messages,
       stream: false,
     });
 
-    // 逐层校验，防止任意一层不存在报错
+    // 逐层校验
     if (!response?.choices?.length) throw new Error("无返回结果");
     const msgObj = response.choices[0].message;
     if (!msgObj?.content) throw new Error("返回内容为空");
@@ -29,7 +29,6 @@ export const fetchAIResponse = async (messages: ChatMessage[]): Promise<string> 
     return content;
   } catch (err) {
     console.error("AI接口捕获错误详情：", err);
-    // 直接抛出错误，页面统一弹窗展示
     throw err;
   }
 };
