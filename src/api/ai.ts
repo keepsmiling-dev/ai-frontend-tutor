@@ -8,7 +8,11 @@ export interface ChatMessage {
 
 export const fetchAIResponse = async (messages: ChatMessage[]): Promise<string> => {
   try {
-    const response: any = await request.post("/v1/chat/completions", {
+    // 判断环境：生产环境走 /api/chat，开发环境走 Vite 代理
+    const isProduction = import.meta.env.PROD
+    const url = isProduction ? '/api/chat' : '/v1/chat/completions'
+    
+    const response: any = await request.post(url,  {
       model: "deepseek-v4-flash",
       messages: messages,
       stream: false,
