@@ -1,5 +1,5 @@
 export async function onRequestPost(context) {
-  // PROXY_WORKER 是后面绑定Worker的变量名，保持一致
+  // PROXY_WORKER 绑定Worker
   const worker = context.env.PROXY_WORKER;
   return worker.fetch(context.request);
 }

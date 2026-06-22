@@ -10,9 +10,7 @@ export const fetchAIResponse = async (messages: ChatMessage[]): Promise<string> 
   try {
     // 判断环境：生产环境走 /api/chat，开发环境走 Vite 代理
     const isDEV = import.meta.env.DEV
-    console.log(isDEV)
     const url = isDEV ? '/deepseek/chat/completions' : '/api/chat'
-    console.log('url'+ url)
 
     const response: any = await request.post(url,  {
       model: "deepseek-v4-flash",
@@ -31,7 +29,6 @@ export const fetchAIResponse = async (messages: ChatMessage[]): Promise<string> 
     if (content.includes("Token耗尽") || content.includes("AI服务暂时无法使用")) {
       throw new Error("对话内容过长或访问受限，请清空历史对话后重试");
     }
-
     return content;
   } catch (err) {
     console.error("AI接口捕获错误详情：", err);
