@@ -15,27 +15,6 @@ function escapeHtml(str: string): string {
 const renderer = new marked.Renderer()
 
 // 自定义代码块
-/* renderer.code = function (code: string, language: string) {
-  const lang = language && hljs.getLanguage(language) ? language : 'plaintext';
-  const codeId = `code-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-
-  try {
-    const highlighted = hljs.highlight(code, { language: lang }).value;
-    return `
-    <div class="code-block-wrapper" data-code-id="${codeId}">
-      <pre><code class="hljs language-${lang}">${highlighted}</code></pre>
-      <button class="copy-code-btn van-button van-button--small van-button--primary" data-code="${escapeHtml(code)}">
-        <span class="copy-txt">复制</span>
-        <span class="success-icon van-icon van-icon-success" style="display:none;"></span>
-      </button>
-    </div>
-    `;
-  } catch (error) {
-    return `<pre><code>${escapeHtml(code)}</code></pre>`;
-  }
-}; */
-
-// 自定义代码块
 renderer.code = function (code: string, language: string) {
   const lang = language && hljs.getLanguage(language) ? language : 'plaintext';
   const codeId = `code-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;

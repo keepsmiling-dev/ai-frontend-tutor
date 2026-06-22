@@ -101,7 +101,7 @@ const rawList: Omit<InterviewQuestion, 'id'>[] = [
   }
 ]
 
-// 自动生成递增ID，新增题目直接往数组末尾追加即可
+// 自动生成递增ID
 export const htmlQuestions: InterviewQuestion[] = rawList.map((item, index) => ({
   id: index + 1,
   ...item
